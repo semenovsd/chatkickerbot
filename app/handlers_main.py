@@ -20,15 +20,20 @@ withdraw_cb = CallbackData('withdraw', 'action', 'club', 'method')
 
 
 # сделать два фильтра на группу и канал
-@dp.message_handler()
+@dp.channel_post_handler()
 async def new_member(message: Message):
-    await bot.send_message(TG_ADMINS_ID[0], f"{message.chat}")
-    await message.reply(f'Сообщение из чата: {message.chat}')
+    await bot.send_message(TG_ADMINS_ID[0], f"{message}")
+    await message.reply(f'Сообщение из канала! : {message.chat}')
 
 
-# @dp.message_handler(IsMangedChannel(), content_types=ContentType.NEW_CHAT_MEMBERS)
+# # @dp.message_handler(IsMangedChannel(), content_types=ContentType.NEW_CHAT_MEMBERS)
 @dp.message_handler(content_types=ContentType.NEW_CHAT_MEMBERS)
 async def new_member(message: Message):
+    """
+    Если зашёл в канал, надо проверить, есть ли он в группе, если нет, то кикнуть!
+    :param message:
+    :return:
+    """
     await message.reply(f'В чат зашёл юзер {[user.get_mention(as_html=True) for user in message.new_chat_members]}')
     # return add_member(message)
     # await service_meaasge.delete()
@@ -37,6 +42,11 @@ async def new_member(message: Message):
 # @dp.message_handler(IsObservedGroup(), content_types=ContentType.LEFT_CHAT_MEMBER)
 @dp.message_handler(content_types=ContentType.LEFT_CHAT_MEMBER)
 async def banned_member(message: Message):
+    """
+    Проверяем кого кикнули из группы, его же надо кикнуть из канала!
+    :param message:
+    :return:
+    """
     await message.reply(f'В чат удалён юзер {message.left_chat_member.get_mention(as_html=True)}')
     # return kick_member(message)
 
