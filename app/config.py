@@ -20,12 +20,6 @@ WEBHOOK_PATH = os.getenv('WEBHOOK_PATH')
 WEBAPP_HOST = os.getenv('WEBAPP_HOST')
 WEBAPP_PORT = os.getenv('WEBAPP_PORT')
 
-# Postgressql
-PG_HOST = os.getenv('PG_HOST')
-POSTGRES_USER = os.getenv('POSTGRES_USER')
-POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
-POSTGRES_DB = os.getenv('POSTGRES_DB')
-
 # Group id
 TG_NOTICE_GROUP_ID = os.getenv('TG_NOTICE_GROUP_ID')
 

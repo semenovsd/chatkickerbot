@@ -6,14 +6,12 @@ from aiogram.utils.executor import start_webhook
 from config import (TG_ADMINS_ID, WEBAPP_HOST, WEBAPP_PORT, WEBHOOK_HOST,
                     WEBHOOK_PORT,
                     WEBHOOK_PATH, SSL_DIR, SSL_CERT, SSL_PRIV)
-from database import create_db
 from load_all import bot
 
 WEBHOOK_URL = f'{WEBHOOK_HOST}:{WEBHOOK_PORT}{WEBHOOK_PATH}'
 
 
 async def on_startup(dispatcher: Dispatcher):
-    await create_db()
 
     # Check webhook
     webhook = await bot.get_webhook_info()
@@ -39,16 +37,11 @@ async def on_shutdown(dispatcher: Dispatcher):
 
     # Close bot
     await bot.close()
-    #
-    # Close DB connection (if used)
-    await dp.storage.close()
-    await dp.storage.wait_closed()
 
 
 if __name__ == '__main__':
     # forwarding dp from handlers
     from handlers_main import dp
-    from handlers_cancel import dp
 
     # Generate SSL context.
     context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
