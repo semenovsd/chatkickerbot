@@ -15,9 +15,9 @@ withdraw_cb = CallbackData('withdraw', 'action', 'club', 'method')
 #     await bot.send_message(TG_ADMINS_ID[0], f'Сообщение из канала! : {message}')
 #
 #
-# @dp.message_handler()
-# async def new_member(message: Message):
-#     await bot.send_message(TG_ADMINS_ID[0], f'Сообщение из группы! : {message}')
+@dp.message_handler()
+async def new_member(message: Message):
+    await bot.send_message(TG_ADMINS_ID[0], f'Сообщение из группы! : {message.chat.id}')
 
 
 # @dp.message_handler(IsObservedGroup(), content_types=ContentType.LEFT_CHAT_MEMBER)
@@ -34,6 +34,7 @@ async def banned_member(message: Message):
 
 async def kick_member(message: Message):
     # кикнули из группы, кикаем из канала
+    # TODO make exception handler
     await bot.kick_chat_member(TG_MANAGED_CHANNEL_ID, message.left_chat_member.id)
     await bot.send_message(TG_ADMINS_ID[0], f'Удаляем пользователя: {message.left_chat_member.id} '
                                             f'из канала: {message.chat.id}')
