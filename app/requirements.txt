@@ -1,0 +1,6 @@
+aiogram==2.8
+aiohttp==3.6.2
+sqlalchemy==1.3.16
+gino==1.0.0
+requests==2.24.0
+qiwipy==2.1.5
