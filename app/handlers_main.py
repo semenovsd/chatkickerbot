@@ -21,7 +21,7 @@ withdraw_cb = CallbackData('withdraw', 'action', 'club', 'method')
 # сделать два фильтра на группу и канал
 @dp.message_handler()
 async def new_member(message: Message):
-    await message.reply(f'Сообщение из чата: {message.chat=}')
+    await message.reply(f'Сообщение из чата: {message.chat}')
 
 
 # @dp.message_handler(IsMangedChannel(), content_types=ContentType.NEW_CHAT_MEMBERS)
