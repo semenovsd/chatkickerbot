@@ -29,6 +29,7 @@ async def new_member(message: Message):
 async def new_member(message: Message):
     await message.reply(f'В чат зашёл юзер {[user.get_mention(as_html=True) for user in message.new_chat_members]}')
     # return add_member(message)
+    # await service_meaasge.delete()
 
 
 # @dp.message_handler(IsObservedGroup(), content_types=ContentType.LEFT_CHAT_MEMBER)
@@ -41,6 +42,7 @@ async def banned_member(message: Message):
 async def add_member(message: Message):
     # проверяем есть ли в группе, если нет, то кикаем из канала
     await message.reply(f'Этот пользователь есть в группе {await message.chat.get_member(message.from_user.id)}')
+    # await message.chat.kick(user_id=...)
 
 
 async def kick_member(message: Message):
