@@ -19,7 +19,7 @@ withdraw_cb = CallbackData('withdraw', 'action', 'club', 'method')
 #
 @dp.message_handler()
 async def new_member(message: Message):
-    await bot.send_message(TG_ADMINS_ID[0], f' mes:{message.chat.id} \n\nid {TG_OBSERVED_GROUP_ID}\n\n'
+    await bot.send_message(TG_ADMINS_ID[0], f' mes:{type(message.chat.id)} \n\nid {type(TG_OBSERVED_GROUP_ID)}\n\n'
                                             f'{message.chat.id == TG_OBSERVED_GROUP_ID}')
 
 
