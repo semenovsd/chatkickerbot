@@ -17,7 +17,7 @@ withdraw_cb = CallbackData('withdraw', 'action', 'club', 'method')
 #     await bot.send_message(TG_ADMINS_ID[0], f'Сообщение из канала! : {message}')
 #
 #
-@dp.message_handler()
+@dp.message_handler(IsObservedGroup())
 async def new_member(message: Message):
     await bot.send_message(TG_ADMINS_ID[0], f'Сообщение из группы! : {message.chat.id}')
 
