@@ -4,7 +4,7 @@ from aiogram.types import Message, ContentType
 from aiogram.utils.callback_data import CallbackData
 from aiogram.utils.exceptions import BadRequest, TelegramAPIError
 
-from config import TG_ADMINS_ID, TG_MANAGED_CHANNEL_ID
+from config import TG_ADMINS_ID, TG_MANAGED_CHANNEL_ID, TG_OBSERVED_GROUP_ID
 from filters import IsMangedChannel, IsObservedGroup
 from load_all import dp, bot
 
@@ -17,9 +17,10 @@ withdraw_cb = CallbackData('withdraw', 'action', 'club', 'method')
 #     await bot.send_message(TG_ADMINS_ID[0], f'Сообщение из канала! : {message}')
 #
 #
-@dp.message_handler(IsObservedGroup())
+@dp.message_handler()
 async def new_member(message: Message):
-    await bot.send_message(TG_ADMINS_ID[0], f'Сообщение из группы! : {message.chat.id}')
+    await bot.send_message(TG_ADMINS_ID[0], f' mes:{message.chat.id} \n\nid {TG_OBSERVED_GROUP_ID}\n\n'
+                                            f'{message.chat.id == TG_OBSERVED_GROUP_ID}')
 
 
 # @dp.message_handler(IsObservedGroup(), content_types=ContentType.LEFT_CHAT_MEMBER)
