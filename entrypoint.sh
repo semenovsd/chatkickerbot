@@ -8,6 +8,7 @@ sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
 curl -fsSL https://get.docker.com -o get-docker.sh
 sh get-docker.sh
+sudo apt-get install -y docker-compose
 sudo systemctl start docker
 
 ## Enable userns-remap on the daemon
@@ -27,4 +28,3 @@ mkdir "${SSL_DIR}"
 openssl req -newkey rsa:2048 -sha256 -nodes -keyout "${SSL_DIR}${SSL_PRIV}" -x509 -days 365 -out "${SSL_DIR}${SSL_CERT}" \
 -subj "/C=US/ST=Oregon/L=Portland/O=Company Name/OU=Org/CN=${DOMAIN_NAME_OR_IP}"
 sudo chmod -R +r "${SSL_DIR}"
-sudo exit
