@@ -1,6 +1,8 @@
+import logging
 
 from aiogram.types import Message, ContentType
 from aiogram.utils.callback_data import CallbackData
+from aiogram.utils.exceptions import BadRequest, TelegramAPIError
 
 from config import TG_ADMINS_ID, TG_MANAGED_CHANNEL_ID
 from filters import IsMangedChannel, IsObservedGroup
@@ -35,6 +37,10 @@ async def banned_member(message: Message):
 async def kick_member(message: Message):
     # кикнули из группы, кикаем из канала
     # TODO make exception handler
-    await bot.kick_chat_member(TG_MANAGED_CHANNEL_ID, message.left_chat_member.id)
-    await bot.send_message(TG_ADMINS_ID[0], f'Удаляем пользователя: {message.left_chat_member.id} '
-                                            f'из канала: {message.chat.id}')
+    try:
+        await bot.kick_chat_member(TG_MANAGED_CHANNEL_ID, message.left_chat_member.id)
+    except TelegramAPIError as e:
+        logging.info(f'ERROR не удалось удалить пользователя {message.left_chat_member.id} по причине: {e}')
+    else:
+        await bot.send_message(TG_ADMINS_ID[0], f'Удаляем пользователя: {message.left_chat_member.id} '
+                                                f'из канала: {message.chat.id}')
