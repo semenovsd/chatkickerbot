@@ -19,19 +19,17 @@ withdraw_cb = CallbackData('withdraw', 'action', 'club', 'method')
 """
 
 
-# # сделать два фильтра на группу и канал
-# @dp.channel_post_handler()
-# async def new_member(message: Message):
-#     await bot.send_message(TG_ADMINS_ID[0], f'Сообщение из канала! : {message.chat}')
-#
-#
-# # сделать два фильтра на группу и канал
-# @dp.channel_post_handler()
-# async def new_member(message: Message):
-#     await bot.send_message(TG_ADMINS_ID[0], f'Сообщение из группы! : {message.chat}')
+@dp.channel_post_handler()
+async def new_member(message: Message):
+    await bot.send_message(TG_ADMINS_ID[0], f'Сообщение из канала! : {message}')
 
 
-@dp.message_handler(IsMangedChannel(), content_types=ContentType.NEW_CHAT_MEMBERS)
+@dp.message_handler()
+async def new_member(message: Message):
+    await bot.send_message(TG_ADMINS_ID[0], f'Сообщение из группы! : {message}')
+
+
+@dp.channel_post_handler(IsMangedChannel(), content_types=ContentType.NEW_CHAT_MEMBERS)
 async def new_member(message: Message):
     """
     Если зашёл в канал, надо проверить, есть ли он в группе, если нет, то кикнуть!
