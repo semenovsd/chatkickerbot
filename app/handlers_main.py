@@ -50,11 +50,11 @@ async def banned_member(message: Message):
     :param message:
     :return:
     """
-    await bot.send_message(TG_ADMINS_ID[0], f'{message}')
+    await bot.send_message(TG_ADMINS_ID[0], f'{message.left_chat_member}')
 
     # await bot.send_message(TG_ADMINS_ID[0], f'Удалён юзер {message.left_chat_member.get_mention(as_html=True)}')
     # await message.reply(f'Удалён юзер {message.left_chat_member.get_mention(as_html=True)}')
-    return kick_member(message)
+    return await kick_member(message)
 
 
 async def kick_member(message: Message):
