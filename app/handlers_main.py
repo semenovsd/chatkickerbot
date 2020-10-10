@@ -1,31 +1,37 @@
 import logging
 
 from aiogram.types import Message, ContentType
-from aiogram.utils.callback_data import CallbackData
 from aiogram.utils.exceptions import BadRequest, TelegramAPIError
 
 from config import TG_ADMINS_ID, TG_MANAGED_CHANNEL_ID, TG_OBSERVED_GROUP_ID
 from filters import IsMangedChannel, IsObservedGroup
 from load_all import dp, bot
 
-club_cb = CallbackData('deposit', 'club')
-withdraw_cb = CallbackData('withdraw', 'action', 'club', 'method')
-
 
 # @dp.channel_post_handler()
 # async def new_member(message: Message):
+#     """
+#     Данный хэндлер ловит любое сообщение из канала из отправляет админу сообщение с его айди.
+#     :param message:
+#     :return:
+#     """
 #     await bot.send_message(TG_ADMINS_ID[0], f'{message.chat.id}')
 #
 #
 # @dp.message_handler()
 # async def new_member(message: Message):
+#     """
+#     Данный хэндлер ловит любое сообщение из группы из отправляет админу сообщение с его айди.
+#     :param message:
+#     :return:
+#     """
 #     await bot.send_message(TG_ADMINS_ID[0], f'{message.chat.id}')
 
 
 @dp.message_handler(IsObservedGroup(), content_types=ContentType.LEFT_CHAT_MEMBER)
 async def banned_member(message: Message):
     """
-    Проверяем кого кикнули из группы и кикаем его из канала!
+    Функция ловит сервисное сообщение о выходе/удалении пользователя из группы и передаёт его для удаления из канала.
     :param message:
     :return:
     """
@@ -34,8 +40,11 @@ async def banned_member(message: Message):
 
 
 async def kick_member(message: Message):
-    # кикнули из группы, кикаем из канала
-    # TODO make exception handler
+    """
+    Функция удаляет пользователя из канала по ID из сервисного сообщения из группы.
+    :param message:
+    :return:
+    """
     try:
         await bot.kick_chat_member(TG_MANAGED_CHANNEL_ID, message.left_chat_member.id)
     except TelegramAPIError as e:
