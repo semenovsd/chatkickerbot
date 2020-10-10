@@ -2,7 +2,7 @@
 from aiogram.types import Message, ContentType
 from aiogram.utils.callback_data import CallbackData
 
-from config import TG_ADMINS_ID
+from config import TG_ADMINS_ID, TG_MANAGEDCHANNEL_ID
 from filters import IsMangedChannel, IsObservedGroup
 from load_all import dp, bot
 
@@ -50,16 +50,16 @@ async def banned_member(message: Message):
     :param message:
     :return:
     """
-    await bot.send_message(TG_ADMINS_ID[0], f'{message.left_chat_member}')
+    await bot.send_message(TG_ADMINS_ID[0], f'{message.left_chat_member.id}')
 
-    # await bot.send_message(TG_ADMINS_ID[0], f'Удалён юзер {message.left_chat_member.get_mention(as_html=True)}')
-    # await message.reply(f'Удалён юзер {message.left_chat_member.get_mention(as_html=True)}')
     return await kick_member(message)
 
 
 async def kick_member(message: Message):
     # кикнули из группы, кикаем из канала
-    # await bot.kick_chat_member()
-    await bot.send_message(TG_ADMINS_ID[0], f'{message}')
+    await bot.kick_chat_member(TG_MANAGEDCHANNEL_ID, )
+    await bot.send_message(TG_ADMINS_ID[0], f'Удаляем пользователя: {message.left_chat_member.id} '
+                                            f'из канала: {message.chat.id}')
+
     # await message.reply(f'В чат удалён юзер {message.left_chat_member.get_mention(as_html=True)}')
 
