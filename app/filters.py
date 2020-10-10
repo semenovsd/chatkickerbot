@@ -6,11 +6,11 @@ from config import TG_OBSERVED_GROUP_ID, TG_MANAGED_CHANNEL_ID
 
 class IsObservedGroup(BoundFilter):
     async def check(self, message: Message) -> bool:
-        return message.chat.id == TG_OBSERVED_GROUP_ID
+        return message.chat.id == int(TG_OBSERVED_GROUP_ID)
 
 
 class IsMangedChannel(BoundFilter):
     async def check(self, message: Message) -> bool:
-        return message.chat.id == TG_MANAGED_CHANNEL_ID
+        return message.chat.id == int(TG_MANAGED_CHANNEL_ID)
 
 

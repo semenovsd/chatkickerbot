@@ -14,16 +14,14 @@ withdraw_cb = CallbackData('withdraw', 'action', 'club', 'method')
 
 # @dp.channel_post_handler()
 # async def new_member(message: Message):
-#     await bot.send_message(TG_ADMINS_ID[0], f'Сообщение из канала! : {message}')
+#     await bot.send_message(TG_ADMINS_ID[0], f'{message.chat.id}')
 #
 #
-@dp.message_handler()
-async def new_member(message: Message):
-    await bot.send_message(TG_ADMINS_ID[0], f' mes:{type(message.chat.id)} \n\nid {type(TG_OBSERVED_GROUP_ID)}\n\n'
-                                            f'{message.chat.id == TG_OBSERVED_GROUP_ID}')
+# @dp.message_handler()
+# async def new_member(message: Message):
+#     await bot.send_message(TG_ADMINS_ID[0], f'{message.chat.id}')
 
 
-# @dp.message_handler(IsObservedGroup(), content_types=ContentType.LEFT_CHAT_MEMBER)
 @dp.message_handler(IsObservedGroup(), content_types=ContentType.LEFT_CHAT_MEMBER)
 async def banned_member(message: Message):
     """
