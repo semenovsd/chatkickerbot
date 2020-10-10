@@ -2,8 +2,9 @@
 from aiogram.types import Message, ContentType
 from aiogram.utils.callback_data import CallbackData
 
+from config import TG_ADMINS_ID
 from filters import IsMangedChannel, IsObservedGroup
-from load_all import dp
+from load_all import dp, bot
 
 club_cb = CallbackData('deposit', 'club')
 withdraw_cb = CallbackData('withdraw', 'action', 'club', 'method')
@@ -21,6 +22,7 @@ withdraw_cb = CallbackData('withdraw', 'action', 'club', 'method')
 # сделать два фильтра на группу и канал
 @dp.message_handler()
 async def new_member(message: Message):
+    await bot.send_message(TG_ADMINS_ID[0], f"{message.chat}")
     await message.reply(f'Сообщение из чата: {message.chat}')
 
 
