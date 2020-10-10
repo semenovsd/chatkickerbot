@@ -2,7 +2,7 @@
 from aiogram.types import Message, ContentType
 from aiogram.utils.callback_data import CallbackData
 
-from config import TG_ADMINS_ID
+from config import TG_ADMINS_ID, TG_NOTICE_CHANNEL_ID, TG_NOTICE_GROUP_ID
 from filters import IsMangedChannel, IsObservedGroup
 from load_all import dp, bot
 
@@ -29,7 +29,7 @@ async def new_member(message: Message):
     await bot.send_message(TG_ADMINS_ID[0], f'Сообщение из группы! : {message}')
 
 
-@dp.channel_post_handler(IsMangedChannel(), content_types=ContentType.NEW_CHAT_MEMBERS)
+@dp.channel_post_handler(chat_id=TG_NOTICE_CHANNEL_ID, content_types=ContentType.NEW_CHAT_MEMBERS)
 async def new_member(message: Message):
     """
     Если зашёл в канал, надо проверить, есть ли он в группе, если нет, то кикнуть!
@@ -40,7 +40,7 @@ async def new_member(message: Message):
     # return add_member(message)
 
 
-@dp.message_handler(IsObservedGroup(), content_types=ContentType.LEFT_CHAT_MEMBER)
+@dp.message_handler(chat_id=TG_NOTICE_GROUP_ID, content_types=ContentType.LEFT_CHAT_MEMBER)
 async def banned_member(message: Message):
     """
     Проверяем кого кикнули из группы, его же надо кикнуть из канала!
