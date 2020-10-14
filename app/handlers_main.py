@@ -50,5 +50,6 @@ async def kick_member(message: Message):
     except TelegramAPIError as e:
         logging.info(f'\n\nERROR не удалось удалить пользователя {message.left_chat_member.id} по причине: {e}\n\n')
     else:
+        logging.info(f'\n\nПользователь: {message.left_chat_member.id} удалён из канала: {message.chat.id}\n\n')
         await bot.send_message(TG_ADMINS_ID[0], f'Удаляем пользователя: {message.left_chat_member.id} '
                                                 f'из канала: {message.chat.id}')
