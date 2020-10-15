@@ -18,17 +18,17 @@ from load_all import dp, bot
 #     await bot.send_message(TG_ADMINS_ID[0], f'Сообщение из канала: {message.chat.id}')
 #
 #
-@dp.message_handler(IsObservedGroup())
-async def new_member(message: Message):
-    """
-    Данный хэндлер ловит любое сообщение из группы из отправляет админу сообщение с его айди.
-    :param message:
-    :return:
-    """
-    await bot.send_message(TG_ADMINS_ID[0], f'Сообщение из группы: {message.chat.id}')
+# @dp.message_handler(IsObservedGroup())
+# async def new_member(message: Message):
+#     """
+#     Данный хэндлер ловит любое сообщение из группы из отправляет админу сообщение с его айди.
+#     :param message:
+#     :return:
+#     """
+#     await bot.send_message(TG_ADMINS_ID[0], f'Сообщение из группы: {message.chat.id}')
 
 
-@dp.message_handler(IsObservedGroup(), content_types=ContentType.LEFT_CHAT_MEMBER)
+@dp.message_handler(content_types=ContentType.LEFT_CHAT_MEMBER)
 async def banned_member(message: Message):
     """
     Функция ловит сервисное сообщение о выходе/удалении пользователя из группы и передаёт его для удаления из канала.
