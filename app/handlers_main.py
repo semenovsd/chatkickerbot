@@ -18,14 +18,15 @@ from load_all import dp, bot
 #     await bot.send_message(TG_ADMINS_ID[0], f'Сообщение из канала: {message.chat.id}')
 #
 #
-# @dp.message_handler(IsObservedGroup())
-# async def new_member(message: Message):
-#     """
-#     Данный хэндлер ловит любое сообщение из группы из отправляет админу сообщение с его айди.
-#     :param message:
-#     :return:
-#     """
-#     await bot.send_message(TG_ADMINS_ID[0], f'Сообщение из группы: {message.chat.id}')
+@dp.message_handler()
+async def new_member(message: Message):
+    """
+    Данный хэндлер ловит любое сообщение из группы из отправляет админу сообщение с его айди.
+    :param message:
+    :return:
+    """
+    await bot.send_message(TG_ADMINS_ID[0], f'Сообщение из группы: {message.chat.id}\n\n\n'
+                                            f'{message}')
 
 
 @dp.message_handler(content_types=ContentType.LEFT_CHAT_MEMBER)
