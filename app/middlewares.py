@@ -18,3 +18,7 @@ class ObserverMiddleware(BaseMiddleware):
 
     async def on_pre_process_update(self, update: types.Update, data: dict, *arg, **kwargs):
         logging.info(f'{update.__dict__=} \n\n\n data {data=}')
+        try:
+            logging.info(f'\n\n\n{update.message.__dict__=} \n\n\n')
+        except Exception:
+            pass
