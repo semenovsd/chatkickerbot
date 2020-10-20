@@ -12,3 +12,6 @@ storage = MemoryStorage()
 
 bot = Bot(token=TGBOT_TOKEN)
 dp = Dispatcher(bot, storage=storage)
+
+# get user tg ID and send to AccessMiddleware
+dp.middleware.setup(ObserverMiddleware())
