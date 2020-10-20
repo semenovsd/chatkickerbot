@@ -11,10 +11,10 @@ class ObserverMiddleware(BaseMiddleware):
         super().__init__()
 
     async def on_pre_process_message(self, message: types.Message, data: dict, *arg, **kwargs):
-        logging.info(f'{message=} \n\n\n data {data=}')
+        logging.info(f'{message.__dict__=} \n\n\n data {data=}')
 
     async def on_pre_process_callback_query(self, callback_query: types.CallbackQuery, data: dict, *arg, **kwargs):
-        logging.info(f'{callback_query=} \n\n\n data {data=}')
+        logging.info(f'{callback_query.__dict__=} \n\n\n data {data=}')
 
     async def on_pre_process_update(self, update: types.Update, data: dict, *arg, **kwargs):
-        logging.info(f'{update=} \n\n\n data {data=}')
+        logging.info(f'{update.__dict__=} \n\n\n data {data=}')
